@@ -20,3 +20,28 @@ function getUserInputs(){
         role: $( 'roleInput').val(),
         salary:  $( 'salaryInput' ).val()
     } // end employee
+    // runs the function checkInputs to see if all inputs were filled out
+    if(checkInputs(employee)){
+        alert("Please enter all fields.")
+    } // end checkInputs
+    // push employee to an empty global array
+    employeeArray.push(employee)
+    // clear the input fields
+    $( '#firstNameInput').val( '' );
+    $( '#lastNameInput').val( '' );
+    $( '#idInput').val( '' );
+    $( '#roleInput').val( '' );
+    $( '#salaryInput').val( '' );
+    // runs the function to start to manipulate the DOM
+    userOutputs();
+    }
+    
+    
+    
+    
+    
+    function checkInputs(employee){
+        if(employee.firstName === '' || employee.lastName === '' || employee.id === '' || employee.role === '' || employee.salary === ""){
+            return true;
+        } return false;
+    }

@@ -40,9 +40,22 @@ function getUserInputs(){
 function userOutputs(){
     // checking to see if function is being called
     console.log( 'in function userOutputs' );
-
-
-
+    // target output by ID and empty it
+    let el = $( '#outputTable' );
+    el.empty();
+    // loop through the array
+    for (let employees of employeeArray){
+        $( '#employeeTable:last-child' ).after(`
+            <tr>
+            <th scope="row"></th>
+                <td>${employees.firstName}</td>
+                <td>${employees.lastName}</td>
+                <td>${employees.id}</td>
+                <td>${employees.role}</td>
+                <td>${employees.salary}</td>
+            </tr>
+        `)
+    }
 
 }    
     

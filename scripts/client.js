@@ -26,6 +26,16 @@ function getUserInputs(){
     } // end checkInputs
     // push employee to an empty global array
     employeeArray.push(employee)
+    // appending to table
+    $( '.table' ).append(`
+            <tr>
+                <td>${employee.firstName}</td>
+                <td>${employee.lastName}</td>
+                <td>${employee.id}</td>
+                <td>${employee.role}</td>
+                <td>${employee.salary}</td>
+            </tr>
+        `)
     // clear the input fields
     $( '#firstNameInput').val( '' );
     $( '#lastNameInput').val( '' );
@@ -33,33 +43,7 @@ function getUserInputs(){
     $( '#roleInput').val( '' );
     $( '#salaryInput').val( '' );
     // console.log(employeeArray); --> Testing to make sure that everything is working properly. It is!
-    // runs the function to start to manipulate the DOM
-    userOutputs();
-    }
-    
-function userOutputs(){
-    // checking to see if function is being called
-    console.log( 'in function userOutputs' );
-    // target output by ID and empty it
-    let el = $( '#outputTable' );
-    el.empty();
-    // loop through the array
-    for (let employees of employeeArray){
-        $( '#employeeTable:last-child' ).after(`
-            <tr>
-            <th scope="row"></th>
-                <td>${employees.firstName}</td>
-                <td>${employees.lastName}</td>
-                <td>${employees.id}</td>
-                <td>${employees.role}</td>
-                <td>${employees.salary}</td>
-            </tr>
-        `)
-    }
-
-}    
-    
-    
+}
     
 function checkInputs(employee){
      if(employee.firstName === '' || employee.lastName === '' || employee.id === '' || employee.role === '' || employee.salary === ""){

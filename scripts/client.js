@@ -58,6 +58,12 @@ function clickedDelete(){
     // Checking to see if function is being called
     console.log( 'in function clickedDelete' );
     // delete the closest thing
+    // let newTotal = $( '.payrollCalc' ).val();
+    // let delVal = $(this).closest(".something").find('#salaryInput').val();
+    // let val = parseFloat(delVal);
+    // if(!isNaN(val))
+    //     newTotal -= Number(val);
+    // console.log(newTotal);
     $(this).closest('.something').remove();
 }
 

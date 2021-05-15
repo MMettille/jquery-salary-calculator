@@ -4,7 +4,9 @@ function readyNow(){
     // jQuery and JS is loaded, okay to manipulate the DOM
     console.log( 'in readyNow function' );
     // What happens when the submit button is clicked
-    $( '#submitBtn' ).on('click', getUserInputs)
+    $( '#submitBtn' ).on( 'click', getUserInputs )
+    // what happens when the delete button is clicked
+    $( '.body' ).on( 'click', '.deleteBtn', clickedDelete );
 }
 
 let employeeArray = [];
@@ -28,13 +30,18 @@ function getUserInputs(){
     employeeArray.push(employee)
     // appending to table
     $( '.table' ).append(`
-            <tr>
-                <td>${employee.firstName}</td>
-                <td>${employee.lastName}</td>
-                <td>${employee.id}</td>
-                <td>${employee.role}</td>
-                <td>${employee.salary}</td>
-            </tr>
+            <div class="row">
+                <tr>
+                    <td>${employee.firstName}</td>
+                    <td>${employee.lastName}</td>
+                    <td>${employee.id}</td>
+                    <td>${employee.role}</td>
+                    <td>${employee.salary}</td>
+                    <div>
+                        <button class="deleteBtn">DELETE</button>
+                    </div>
+                </tr>
+            </div>
         `)
     // clear the input fields
     $( '#firstNameInput').val( '' );
@@ -44,7 +51,13 @@ function getUserInputs(){
     $( '#salaryInput').val( '' );
     // console.log(employeeArray); --> Testing to make sure that everything is working properly. It is!
 }
-    
+
+function clickedDelete(){
+    // Checking to see if function is being called
+    console.log( 'in function clickedDelete' );
+    // delete the closest thing
+
+}
 function checkInputs(employee){
      if(employee.firstName === '' || employee.lastName === '' || employee.id === '' || employee.role === '' || employee.salary === ""){
         return true;

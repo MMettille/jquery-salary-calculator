@@ -30,18 +30,16 @@ function getUserInputs(){
     employeeArray.push(employee)
     // appending to table
     $( '.table' ).append(`
-            <div class="row">
-                <tr>
+                <tr class="something">
                     <td>${employee.firstName}</td>
                     <td>${employee.lastName}</td>
                     <td>${employee.id}</td>
                     <td>${employee.role}</td>
                     <td>${employee.salary}</td>
-                    <div>
+                    <td>
                         <button class="deleteBtn">DELETE</button>
-                    </div>
+                    </td>
                 </tr>
-            </div>
         `)
     // clear the input fields
     $( '#firstNameInput').val( '' );
@@ -56,7 +54,7 @@ function clickedDelete(){
     // Checking to see if function is being called
     console.log( 'in function clickedDelete' );
     // delete the closest thing
-    $(this).closest('.row').remove();
+    $(this).closest('.something').remove();
 }
 function checkInputs(employee){
      if(employee.firstName === '' || employee.lastName === '' || employee.id === '' || employee.role === '' || employee.salary === ""){

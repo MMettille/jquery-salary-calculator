@@ -38,7 +38,7 @@ function getUserInputs(){
                     <td>${employee.lastName}</td>
                     <td>${employee.id}</td>
                     <td>${employee.role}</td>
-                    <td>${employee.salary}</td>
+                    <td>$${employee.salary}</td>
                     <td>
                         <button class="deleteBtn">DELETE</button>
                     </td>
@@ -67,13 +67,16 @@ function monthlyCalc(){
     let totalSpend=0;
     // for each employee, combine all salaries
     for (employeez of employeeArray){
-        totalSpend += Number(employeez.salary)
+        totalSpend += Number(employeez.salary/12);
         console.log(totalSpend);
     }
     // append the total to the DOM
     let el = $( '.payrollCalc' );
     el.empty();
-    el.append(`Monthly Spend on Payroll: $${totalSpend}.00`);
+    el.append(`<h3>Monthly Spend on Payroll: $${totalSpend}</h3>`);
+    if ( totalSpend >= 20000 ){
+        $( 'h3' ).css( 'background-color', 'red' );
+    }
 }
 
 function checkInputs(employee){

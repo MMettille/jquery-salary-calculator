@@ -1,0 +1,13 @@
+.body{
+    margin: 50px;
+}
+
+h1 {
+    background-color: #668cff;
+    padding: 10px;
+    text-align: center;
+}
+
+.outputs{
+    padding: 10px 0px 10px 0px;
+}

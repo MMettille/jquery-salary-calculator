@@ -7,11 +7,14 @@ function readyNow(){
     $( '#submitBtn' ).on( 'click', getUserInputs )
     // what happens when the delete button is clicked
     $( '#outputs' ).on( 'click', '.something', '#deleteBtn', clickedDelete );
+    // what happens when the enter button is clicked
+    $( '#enterBtn' ).on( 'click', getUserBudgetInput );
 }
 
 // If we want to calculate monthly spend, we will need to loop through an array. Create an empty array and a new variable
 let employeeArray = [];
 let totalSpend = 0;
+
 function getUserInputs(){
     // Checking to see if function is being called
     console.log( 'in getUserInputs function' );
@@ -34,6 +37,11 @@ function getUserInputs(){
     monthlyCalc();
     clearInputFields();
 }
+
+function getUserBudgetInput({
+
+    checkMonthlyBudget();
+})
 
 // clear the input fields
 function clearInputFields(){
@@ -87,7 +95,7 @@ function clickedDelete(){
     monthlyCalc();
 }
 
-// function to check monthly salary and if the total spend is over 20000
+// function to check monthly salary
 function monthlyCalc(){
     // Checking to see if function is being called
     console.log( 'in function monthlyCalc' )
@@ -102,14 +110,30 @@ function monthlyCalc(){
     let el = $( '.payrollCalc' );
     el.empty();
     el.append(`<h3>Monthly Spend on Payroll: $${totalSpend}</h3>`);
-    checkMonthlyPayrollBudget();
+    checkMonthlyBudget();
 }
 
-function checkMonthlyPayrollBudget(){
-    let payRollBudget = $( '$' )
-    if ( totalSpend >= 20000 ){
+// function to check if the monthly spend is over the payroll budget
+function checkMonthlyBudget(){
+    // resetting everything to normal
+    $( '.payrollCalc' ).css( 'background-color', '#f2f2f2' );
+    // Checking to see if function is being called
+    console.log( 'in function checkMonthlyBudget' );
+    // targeting user's inputs with the DOM and creating a variable
+    let payrollBudget = $( '#payrollBudgetInput' ).val();
+    // making the user's inputs a rounded number
+    payrollBudget = Math.round(Number(payrollBudget))
+    // appending the DOM with the user's input
+    // empty what is there
+    $( '.budgetOutput' ).empty();
+    $( '.budgetOutput' ).append(`
+        <h3>Monthly Payroll Budget: $${payrollBudget}</h3>
+        `)
+    if ( totalSpend >= payrollBudget ){
         $( '.payrollCalc' ).css( 'background-color', 'red' );
     }
+    // clear the input fields
+    $( '#payrollBudgetInput' ).val('');
 }
 function checkInputs(employee){
      if(employee.firstName === '' || employee.lastName === '' || employee.id === '' || employee.role === '' || employee.salary === ""){

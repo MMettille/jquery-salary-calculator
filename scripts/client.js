@@ -29,7 +29,7 @@ function getUserInputs(){
     // push employee to an empty global array
     employeeArray.push(employee)
     // appending to table
-    $( '.table' ).append(`
+    $( '.addARow' ).append(`
                 <tr class="something">
                     <td>${employee.firstName}</td>
                     <td>${employee.lastName}</td>

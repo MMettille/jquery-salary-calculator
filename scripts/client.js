@@ -56,7 +56,7 @@ function clickedDelete(){
     // Checking to see if function is being called
     console.log( 'in function clickedDelete' );
     // delete the closest thing
-
+    $(this).closest('.row').remove();
 }
 function checkInputs(employee){
      if(employee.firstName === '' || employee.lastName === '' || employee.id === '' || employee.role === '' || employee.salary === ""){

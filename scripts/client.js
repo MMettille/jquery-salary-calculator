@@ -11,8 +11,7 @@ function readyNow(){
 
 // If we want to calculate monthly spend, we will need to loop through an array. Create an empty array and a new variable
 let employeeArray = [];
-//let totalSpend = 0;
-
+let totalSpend = 0;
 function getUserInputs(){
     // Checking to see if function is being called
     console.log( 'in getUserInputs function' );
@@ -22,7 +21,7 @@ function getUserInputs(){
         lastName: $( '#lastNameInput' ).val(),
         id: $( '#idInput' ).val(),
         role: $( '#roleInput').val(),
-        salary:  $( '#salaryInput' ).val()
+        salary:  $( '#salaryInput' ).val(),
     } // end employee
     // runs the function checkInputs to see if all inputs were filled out
     if(checkInputs(employee)){
@@ -50,7 +49,7 @@ function getUserInputs(){
     $( '#idInput').val( '' );
     $( '#roleInput').val( '' );
     $( '#salaryInput').val( '' );
-    // console.log(employeeArray); --> Testing to make sure that everything is working properly. It is!
+    console.log(employeeArray);
     monthlyCalc();
 }
 
@@ -58,13 +57,27 @@ function clickedDelete(){
     // Checking to see if function is being called
     console.log( 'in function clickedDelete' );
     // delete the closest thing
-    // let newTotal = $( '.payrollCalc' ).val();
-    // let delVal = $(this).closest(".something").find('#salaryInput').val();
-    // let val = parseFloat(delVal);
-    // if(!isNaN(val))
-    //     newTotal -= Number(val);
-    // console.log(newTotal);
-    $(this).closest('.something').remove();
+    let deletedSalary = $(this).parent().prev().text();
+    console.log(deletedSalary)
+    deletedSalary = deletedSalary.replace($, '');
+    console.log(deletedSalary)
+    totalSpend -= parseInt(totalSpend - deletedSalary / 12);
+    console.log(totalSpend)
+    // for (let i = 0; i<employeeArray.length; i++){
+    //     let employeezz = employeeArray[i]
+    //     console.log(employeezz);
+    //     if (employeezz.firstName === deletedEmployee.firstName &&
+    //         employeezz.lastName === deletedEmployee.lastName &&
+    //         employeezz.id === deletedEmployee.id &&
+    //         employeezz.role === deletedEmployee.role &&
+    //         employeezz.salary === deletedEmployee.salary){
+    //             console.log(employee.firstName)
+    //             employeeArray.splice(i, 1)
+    //         }
+    // }
+    // console.log( 'new employeeArray:', employeeArray )
+    // $(this).closest('.something').remove();
+    // monthlyCalc();
 }
 
 function monthlyCalc(){

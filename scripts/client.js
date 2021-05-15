@@ -11,7 +11,7 @@ function readyNow(){
 
 // If we want to calculate monthly spend, we will need to loop through an array. Create an empty array and a new variable
 let employeeArray = [];
-let totalSpend = 0;
+//let totalSpend = 0;
 
 function getUserInputs(){
     // Checking to see if function is being called
@@ -64,13 +64,18 @@ function clickedDelete(){
 function monthlyCalc(){
     // Checking to see if function is being called
     console.log( 'in function monthlyCalc' )
+    let totalSpend=0;
     // for each employee, combine all salaries
     for (employeez of employeeArray){
         totalSpend += Number(employeez.salary)
-        return totalSpend
+        console.log(totalSpend);
     }
-
+    // append the total to the DOM
+    let el = $( '.payrollCalc' );
+    el.empty();
+    el.append(`Monthly Spend on Payroll: $${totalSpend}.00`);
 }
+
 function checkInputs(employee){
      if(employee.firstName === '' || employee.lastName === '' || employee.id === '' || employee.role === '' || employee.salary === ""){
         return true;

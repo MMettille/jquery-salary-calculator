@@ -6,7 +6,7 @@ function readyNow(){
     // What happens when the submit button is clicked
     $( '#submitBtn' ).on( 'click', getUserInputs )
     // what happens when the delete button is clicked
-    $( '.body' ).on( 'click', '.deleteBtn', clickedDelete );
+    $( '#outputs' ).on( 'click', '.something', '#deleteBtn', clickedDelete );
 }
 
 // If we want to calculate monthly spend, we will need to loop through an array. Create an empty array and a new variable
@@ -30,65 +30,74 @@ function getUserInputs(){
     } // end checkInputs
     // push employee to an empty global array
     employeeArray.push(employee)
-    // appending to table
-    $( '.addARow' ).append(`
-                <tr class="something">
-                    <td>${employee.firstName}</td>
-                    <td>${employee.lastName}</td>
-                    <td>${employee.id}</td>
-                    <td>${employee.role}</td>
-                    <td>$${employee.salary}</td>
-                    <td>
-                        <button class="deleteBtn">DELETE</button>
-                    </td>
-                </tr>
-        `)
-    // clear the input fields
+    displayThings();
+    monthlyCalc();
+    clearInputFields();
+}
+// clear the input fields
+function clearInputFields(){
     $( '#firstNameInput').val( '' );
     $( '#lastNameInput').val( '' );
     $( '#idInput').val( '' );
     $( '#roleInput').val( '' );
     $( '#salaryInput').val( '' );
-    console.log(employeeArray);
-    monthlyCalc();
+}
+
+// Changing what happens on the DOM
+function displayThings(){
+    // empty what is there
+    $( '.addARow' ).empty();
+    // loop through the array, add a table row for each employee
+    for (let employee of employeeArray) {
+        let $employee = $(`
+            <tr class='something'>
+                <td>${employee.firstName}</td>
+                <td>${employee.lastName}</td>
+                <td>${employee.id}</td>
+                <td>${employee.role}</td>
+                <td>$${employee.salary}</td>
+                <td>
+                    <button id="deleteBtn">DELETE</button>
+                </td></tr>`)
+        // setting .data() so we can retrieve it later
+        $employee.data(employee);
+        $( '.addARow' ).append($employee)
+    }
 }
 
 function clickedDelete(){
     // Checking to see if function is being called
     console.log( 'in function clickedDelete' );
     // delete the closest thing
-    let deletedSalary = $(this).parent().prev().text();
-    console.log(deletedSalary)
-    deletedSalary = deletedSalary.replace($, '');
-    console.log(deletedSalary)
-    totalSpend -= parseInt(totalSpend - deletedSalary / 12);
-    console.log(totalSpend)
-    // for (let i = 0; i<employeeArray.length; i++){
-    //     let employeezz = employeeArray[i]
-    //     console.log(employeezz);
-    //     if (employeezz.firstName === deletedEmployee.firstName &&
-    //         employeezz.lastName === deletedEmployee.lastName &&
-    //         employeezz.id === deletedEmployee.id &&
-    //         employeezz.role === deletedEmployee.role &&
-    //         employeezz.salary === deletedEmployee.salary){
-    //             console.log(employee.firstName)
-    //             employeeArray.splice(i, 1)
-    //         }
-    // }
+    let deletedEmployee = $(this).data();
+
+    for (let i = 0; i<employeeArray.length; i++){
+        let employee = employeeArray[i]
+        // comparing the .data() with what we have in the array
+        if (employee.firstName == deletedEmployee.firstName &&
+            employee.lastName == deletedEmployee.lastName &&
+            employee.id == deletedEmployee.id &&
+            employee.role == deletedEmployee.role &&
+            employee.salary == deletedEmployee.salary){
+                employeeArray.splice(i, 1);
+            }
+    }
     // console.log( 'new employeeArray:', employeeArray )
-    // $(this).closest('.something').remove();
-    // monthlyCalc();
+    displayThings()
+    monthlyCalc();
 }
 
+// function to check monthly salary and if the total spend is over 20000
 function monthlyCalc(){
     // Checking to see if function is being called
     console.log( 'in function monthlyCalc' )
-    let totalSpend=0;
+    let totalSpend = 0;
     // for each employee, combine all salaries
     for (employeez of employeeArray){
         totalSpend += Number(employeez.salary/12);
-        console.log(totalSpend);
+        // console.log(totalSpend);
     }
+    console.log(totalSpend)
     // append the total to the DOM
     let el = $( '.payrollCalc' );
     el.empty();

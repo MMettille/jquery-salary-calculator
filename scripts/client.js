@@ -9,7 +9,9 @@ function readyNow(){
     $( '.body' ).on( 'click', '.deleteBtn', clickedDelete );
 }
 
+// If we want to calculate monthly spend, we will need to loop through an array. Create an empty array and a new variable
 let employeeArray = [];
+let totalSpend = 0;
 
 function getUserInputs(){
     // Checking to see if function is being called
@@ -25,6 +27,7 @@ function getUserInputs(){
     // runs the function checkInputs to see if all inputs were filled out
     if(checkInputs(employee)){
         alert("Please enter all fields.");
+        return;
     } // end checkInputs
     // push employee to an empty global array
     employeeArray.push(employee)
@@ -48,6 +51,7 @@ function getUserInputs(){
     $( '#roleInput').val( '' );
     $( '#salaryInput').val( '' );
     // console.log(employeeArray); --> Testing to make sure that everything is working properly. It is!
+    monthlyCalc();
 }
 
 function clickedDelete(){
@@ -55,6 +59,17 @@ function clickedDelete(){
     console.log( 'in function clickedDelete' );
     // delete the closest thing
     $(this).closest('.something').remove();
+}
+
+function monthlyCalc(){
+    // Checking to see if function is being called
+    console.log( 'in function monthlyCalc' )
+    // for each employee, combine all salaries
+    for (employeez of employeeArray){
+        totalSpend += Number(employeez.salary)
+        return totalSpend
+    }
+
 }
 function checkInputs(employee){
      if(employee.firstName === '' || employee.lastName === '' || employee.id === '' || employee.role === '' || employee.salary === ""){

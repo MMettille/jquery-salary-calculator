@@ -34,6 +34,7 @@ function getUserInputs(){
     monthlyCalc();
     clearInputFields();
 }
+
 // clear the input fields
 function clearInputFields(){
     $( '#firstNameInput').val( '' );
@@ -61,16 +62,15 @@ function displayThings(){
                 </td></tr>`)
         // setting .data() so we can retrieve it later
         $employee.data(employee);
-        $( '.addARow' ).append($employee)
+        $( '.addARow' ).append($employee);
     }
 }
 
 function clickedDelete(){
     // Checking to see if function is being called
     console.log( 'in function clickedDelete' );
-    // delete the closest thing
+    // getting the .data()
     let deletedEmployee = $(this).data();
-
     for (let i = 0; i<employeeArray.length; i++){
         let employee = employeeArray[i]
         // comparing the .data() with what we have in the array
@@ -94,7 +94,7 @@ function monthlyCalc(){
     let totalSpend = 0;
     // for each employee, combine all salaries
     for (employeez of employeeArray){
-        totalSpend += Number(employeez.salary/12);
+        totalSpend += Math.round(Number(employeez.salary/12));
         // console.log(totalSpend);
     }
     console.log(totalSpend)
@@ -102,11 +102,15 @@ function monthlyCalc(){
     let el = $( '.payrollCalc' );
     el.empty();
     el.append(`<h3>Monthly Spend on Payroll: $${totalSpend}</h3>`);
-    if ( totalSpend >= 20000 ){
-        $( 'h3' ).css( 'background-color', 'red' );
-    }
+    checkMonthlyPayrollBudget();
 }
 
+function checkMonthlyPayrollBudget(){
+    let payRollBudget = $( '$' )
+    if ( totalSpend >= 20000 ){
+        $( '.payrollCalc' ).css( 'background-color', 'red' );
+    }
+}
 function checkInputs(employee){
      if(employee.firstName === '' || employee.lastName === '' || employee.id === '' || employee.role === '' || employee.salary === ""){
         return true;

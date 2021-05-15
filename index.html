@@ -22,7 +22,9 @@
         <button id="submitBtn">SUBMIT</button><br>
     </div>
     <div id="outputs">
-        <h4>Employees</h4><br>
+        <div class="tableHead">
+            <h4>Employees on Payroll</h4>
+        </div>
         <div class="outputTable">
             <table id="employeeTable" class="table table-striped">
                 <thead>
@@ -35,8 +37,18 @@
                         <th scope = "col"></th>
                     </tr>
                 </thead>
-                <tbody class="addARow" cellpadding ="10px"></tbody>
+                <tbody class="addARow" cellpadding ="10px">
+                </tbody>
             </table>
+        </div>
+    </div>
+    <div class="budget">
+        <div class="inputBudget">
+            <input type="text" id="payrollBudget" placeholder="Budget for Payroll">
+            <button id="enterBtn">ENTER</button>
+        </div>
+        <div class="budgetOutput">
+            <h3>Monthly Payroll Budget: $0.00</h3>
         </div>
         <div class="payrollCalc">
             <h3>Monthly Spend on Payroll: $0.00</h3>

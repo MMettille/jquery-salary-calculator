@@ -38,10 +38,29 @@ function getUserInputs(){
     clearInputFields();
 }
 
-function getUserBudgetInput({
-
-    checkMonthlyBudget();
-})
+// setting the payroll budget to the user's input
+function getUserBudgetInput(){
+    // Checking to see if function is being called
+    console.log( 'in getUserBudgetInput function' );
+    // targeting user's inputs with the DOM and creating a variable
+    let payrollBudget = $( '#payrollBudgetInput' ).val();
+    // making the user's inputs a rounded number
+    payrollBudget = Math.round(Number(payrollBudget));
+    console.log(payrollBudget);
+    // clear the input fields
+    $( '#payrollBudgetInput' ).val('');
+    // // appending the DOM with the user's input
+    // // empty what is there
+    $( '.budgetOutput' ).empty();
+    $( '.budgetOutput' ).append(`
+        <h3>Monthly Payroll Budget: $${payrollBudget}</h3>
+        `)
+    if ( totalSpend >= payrollBudget ){
+            $( '.payrollCalc' ).css( 'background-color', 'red' );
+    } else {
+            $( '.payrollCalc' ).css( 'background-color', '#f2f2f2' );
+    }
+}
 
 // clear the input fields
 function clearInputFields(){
@@ -66,11 +85,12 @@ function displayThings(){
                 <td>${employee.role}</td>
                 <td>$${employee.salary}</td>
                 <td>
-                    <button id="deleteBtn">DELETE</button>
+                    <button id="deleteBtn" class="btn btn-danger btn-sm">DELETE</button>
                 </td></tr>`)
         // setting .data() so we can retrieve it later
         $employee.data(employee);
         $( '.addARow' ).append($employee);
+        hightlightRed();
     }
 }
 
@@ -91,7 +111,7 @@ function clickedDelete(){
             }
     }
     // console.log( 'new employeeArray:', employeeArray )
-    displayThings()
+    
     monthlyCalc();
 }
 
@@ -110,31 +130,21 @@ function monthlyCalc(){
     let el = $( '.payrollCalc' );
     el.empty();
     el.append(`<h3>Monthly Spend on Payroll: $${totalSpend}</h3>`);
-    checkMonthlyBudget();
+    displayThings();
 }
 
-// function to check if the monthly spend is over the payroll budget
-function checkMonthlyBudget(){
-    // resetting everything to normal
-    $( '.payrollCalc' ).css( 'background-color', '#f2f2f2' );
+// function to check if the monthly spend is over the payroll budget and highlighting it red if it is
+function hightlightRed(){
     // Checking to see if function is being called
-    console.log( 'in function checkMonthlyBudget' );
-    // targeting user's inputs with the DOM and creating a variable
+    console.log( 'in function hightlightRed' );
     let payrollBudget = $( '#payrollBudgetInput' ).val();
-    // making the user's inputs a rounded number
-    payrollBudget = Math.round(Number(payrollBudget))
-    // appending the DOM with the user's input
-    // empty what is there
-    $( '.budgetOutput' ).empty();
-    $( '.budgetOutput' ).append(`
-        <h3>Monthly Payroll Budget: $${payrollBudget}</h3>
-        `)
     if ( totalSpend >= payrollBudget ){
         $( '.payrollCalc' ).css( 'background-color', 'red' );
+    } else {
+        $( '.payrollCalc' ).css( 'background-color', '#f2f2f2' );
     }
-    // clear the input fields
-    $( '#payrollBudgetInput' ).val('');
 }
+ 
 function checkInputs(employee){
      if(employee.firstName === '' || employee.lastName === '' || employee.id === '' || employee.role === '' || employee.salary === ""){
         return true;

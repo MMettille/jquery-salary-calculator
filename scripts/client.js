@@ -100,6 +100,7 @@ function clickedDelete(){
     // Checking to see if function is being called
     console.log( 'in function clickedDelete' );
     // getting the .data()
+    confirm('Are you sure you want to delete this employee?')
     let deletedEmployee = $(this).data();
     for (let i = 0; i<employeeArray.length; i++){
         let employee = employeeArray[i]

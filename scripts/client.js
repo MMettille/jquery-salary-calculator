@@ -57,9 +57,9 @@ function getUserBudgetInput(){
         <h3>Monthly Payroll Budget: $${payrollBudget}</h3>
         `)
     if ( totalSpend >= payrollBudget ){
-            $( '.payrollCalc' ).addClass('overbudget');
+        $( '.payrollCalc' ).css( 'background-color', 'red' );
     } else {
-        $( '.payrollCalc' ).addClass('underbudget');
+        $( '.payrollCalc' ).css( 'background-color', '#f2f2f2' );
     }
 }
 
@@ -141,9 +141,9 @@ function hightlightRed(){
     console.log( 'in function hightlightRed' );
     let payrollBudget = $( '#payrollBudgetInput' ).val();
     if ( totalSpend >= payrollBudget ){
-            $( '.payrollCalc' ).addClass('overbudget');
-    }else {
-        $( '.payrollCalc' ).addClass('underbudget');
+        $( '.payrollCalc' ).css( 'background-color', 'red' );
+    } else {
+        $( '.payrollCalc' ).css( 'background-color', '#f2f2f2' );
     }
 }
 

@@ -24,8 +24,8 @@ function getUserInputs(){
         lastName: $( '#lastNameInput' ).val(),
         id: $( '#idInput' ).val(),
         role: $( '#roleInput').val(),
-        salary:  Number($( '#salaryInput' ).val()),
-        biweekly: Math.round(Number($( '#salaryInput' ).val()/26))
+        salary:  Number($( '#salaryInput' ).val()), // annual salary, as a number
+        biweekly: Math.round(Number($( '#salaryInput' ).val()/26)) // biweekly paycheck, as a rounded number
     } // end employee
     // runs the function checkInputs to see if all inputs were filled out
     if(checkInputs(employee)){
@@ -46,7 +46,7 @@ function getUserBudgetInput(){
     // targeting user's inputs with the DOM and creating a variable
     let payrollBudget = $( '#payrollBudgetInput' ).val();
     // making the user's inputs a rounded number
-    payrollBudget = Math.round(payrollBudget);
+    payrollBudget = Math.round(payrollBudget).toLocaleString();
     console.log(payrollBudget);
     // clear the input fields
     $( '#payrollBudgetInput' ).val('');
@@ -84,8 +84,8 @@ function displayThings(){
                 <td>${employee.firstName}</td>
                 <td>${employee.lastName}</td>
                 <td>${employee.role}</td>
-                <td>$${employee.salary}</td>
-                <td>$${employee.biweekly}</td>
+                <td>${employee.salary.toLocaleString('en-EN', {style: 'currency', currency: 'USD'})}</td>
+                <td>${employee.biweekly.toLocaleString('en-EN', {style: 'currency', currency: 'USD'})}</td>
                 <td>
                     <button id="deleteBtn" class="btn btn-danger btn-sm">DELETE</button>
                 </td></tr>`)
@@ -114,8 +114,6 @@ function clickedDelete(){
                 employeeArray.splice(i, 1);
             }
     }
-    // console.log( 'new employeeArray:', employeeArray )
-    
     monthlyCalc();
 }
 
@@ -127,13 +125,13 @@ function monthlyCalc(){
     // for each employee, combine all salaries
     for (employeez of employeeArray){
         totalSpend += Math.round(employeez.salary/12);
-        // console.log(totalSpend);
     }
+    // check to see if it logs correctly
     console.log(totalSpend)
     // append the total to the DOM
     let el = $( '.payrollCalc' );
     el.empty();
-    el.append(`<h3>Monthly Spend on Payroll: $${totalSpend}</h3>`);
+    el.append(`<h3>Monthly Spend on Payroll: ${totalSpend.toLocaleString('en-EN', {style: 'currency', currency: 'USD'})}</h3>`);
     displayThings();
 }
 
@@ -148,7 +146,7 @@ function hightlightRed(){
         $( '.payrollCalc' ).addClass('underbudget');
     }
 }
- 
+
 function checkInputs(employee){
      if(employee.firstName === '' || employee.lastName === '' || employee.id === '' || employee.role === '' || employee.salary === ""){
         return true;

@@ -6,7 +6,7 @@ function readyNow(){
     // What happens when the submit button is clicked
     $( '#submitBtn' ).on( 'click', getUserInputs )
     // what happens when the delete button is clicked
-    $( '#outputs' ).on( 'click', '.something', '#deleteBtn', clickedDelete );
+    $( '#outputs' ).on( 'click', '.AddRow', '#deleteBtn', clickedDelete );
     // what happens when the enter button is clicked
     $( '#enterBtn' ).on( 'click', getUserBudgetInput );
 }
@@ -79,7 +79,7 @@ function displayThings(){
     // loop through the array, add a table row for each employee
     for (let employee of employeeArray) {
         let $employee = $(`
-            <tr class='something'>
+            <tr class='AddRow'>
                 <td>${employee.id}</td>
                 <td>${employee.firstName}</td>
                 <td>${employee.lastName}</td>

@@ -24,7 +24,8 @@ function getUserInputs(){
         lastName: $( '#lastNameInput' ).val(),
         id: $( '#idInput' ).val(),
         role: $( '#roleInput').val(),
-        salary:  $( '#salaryInput' ).val(),
+        salary:  Number($( '#salaryInput' ).val()),
+        biweekly: Math.round(Number($( '#salaryInput' ).val()/26))
     } // end employee
     // runs the function checkInputs to see if all inputs were filled out
     if(checkInputs(employee)){
@@ -45,7 +46,7 @@ function getUserBudgetInput(){
     // targeting user's inputs with the DOM and creating a variable
     let payrollBudget = $( '#payrollBudgetInput' ).val();
     // making the user's inputs a rounded number
-    payrollBudget = Math.round(Number(payrollBudget));
+    payrollBudget = Math.round(payrollBudget);
     console.log(payrollBudget);
     // clear the input fields
     $( '#payrollBudgetInput' ).val('');
@@ -64,9 +65,9 @@ function getUserBudgetInput(){
 
 // clear the input fields
 function clearInputFields(){
+    $( '#idInput').val( '' );
     $( '#firstNameInput').val( '' );
     $( '#lastNameInput').val( '' );
-    $( '#idInput').val( '' );
     $( '#roleInput').val( '' );
     $( '#salaryInput').val( '' );
 }
@@ -79,11 +80,12 @@ function displayThings(){
     for (let employee of employeeArray) {
         let $employee = $(`
             <tr class='something'>
+                <td>${employee.id}</td>
                 <td>${employee.firstName}</td>
                 <td>${employee.lastName}</td>
-                <td>${employee.id}</td>
                 <td>${employee.role}</td>
                 <td>$${employee.salary}</td>
+                <td>$${employee.biweekly}</td>
                 <td>
                     <button id="deleteBtn" class="btn btn-danger btn-sm">DELETE</button>
                 </td></tr>`)
@@ -102,11 +104,12 @@ function clickedDelete(){
     for (let i = 0; i<employeeArray.length; i++){
         let employee = employeeArray[i]
         // comparing the .data() with what we have in the array
-        if (employee.firstName == deletedEmployee.firstName &&
+        if (employee.id == deletedEmployee.id &&
+            employee.firstName == deletedEmployee.firstName &&
             employee.lastName == deletedEmployee.lastName &&
-            employee.id == deletedEmployee.id &&
             employee.role == deletedEmployee.role &&
-            employee.salary == deletedEmployee.salary){
+            employee.salary == deletedEmployee.salary &&
+            employee.biweekly == deletedEmployee.biweekly){
                 employeeArray.splice(i, 1);
             }
     }
@@ -122,7 +125,7 @@ function monthlyCalc(){
     let totalSpend = 0;
     // for each employee, combine all salaries
     for (employeez of employeeArray){
-        totalSpend += Math.round(Number(employeez.salary/12));
+        totalSpend += Math.round(employeez.salary/12);
         // console.log(totalSpend);
     }
     console.log(totalSpend)

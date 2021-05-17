@@ -12,13 +12,15 @@
 </head>
 <body class="body">
     <h1>Payroll Calculator</h1><br>
-    <p>How much are your total employees' wages each month? How does that compare to your payroll budget?
-        This powerful tool does all the complicated math for you!</p>
+    <p>If you are looking for a way to calculate how to pay your employees accurately and quickly, we have
+        the tool for you! This free payroll calculator makes is easy for you to calculate monthly pay and compare
+        it to your monthly payroll budget. Getting started is easy; just enter your employee's information, set your monthly payroll budget,
+        and we will do the rest for you.</p>
     <div class="inputs">
         <h4>Add An Employee</h4><br>
+        <input type="number" id="idInput" placeholder="ID #">
         <input type="text" id="firstNameInput" placeholder="First Name">
         <input type="text" id="lastNameInput" placeholder="Last Name">
-        <input type="number" id="idInput" placeholder="ID #">
         <input type="text" id="roleInput" placeholder="Role">
         <input type="number" id="salaryInput" placeholder="Annual Salary">
         <button id="submitBtn" class="btn btn-outline-secondary" >SUBMIT</button><br>
@@ -31,11 +33,12 @@
             <table id="employeeTable" class="table table-striped">
                 <thead>
                     <tr>
+                        <th scope = "col">ID #</th>
                         <th scope = "col">First Name</th>
                         <th scope = "col">Last Name</th>
-                        <th scope = "col">ID #</th>
                         <th scope = "col">Role</th>
-                        <th scope = "col">Annual Salary</th>
+                        <th scope = "col">Annual Salary (Gross)</th>
+                        <th scope = "col">Biweekly Paycheck (Gross)</th>
                         <th scope = "col"></th>
                     </tr>
                 </thead>
@@ -47,7 +50,7 @@
     <div class="budget">
         <div class="inputBudget">
             <input type="number" id="payrollBudgetInput" placeholder="Budget for Payroll">
-            <button id="enterBtn">ENTER</button>
+            <button id="enterBtn" class="btn btn-outline-secondary">ENTER</button>
         </div>
         <div class="budgetOutput">
             <h3>Monthly Payroll Budget: $0.00</h3>

@@ -14,6 +14,7 @@ function readyNow(){
 // If we want to calculate monthly spend, we will need to loop through an array. Create an empty array and a new variable
 let employeeArray = [];
 let totalSpend = 0;
+let payrollBudget;
 
 function getUserInputs(){
     // Checking to see if function is being called
@@ -44,9 +45,9 @@ function getUserBudgetInput(){
     // Checking to see if function is being called
     console.log( 'in getUserBudgetInput function' );
     // targeting user's inputs with the DOM and creating a variable
-    let payrollBudget = $( '#payrollBudgetInput' ).val();
+    payrollBudget = $( '#payrollBudgetInput' ).val();
     // making the user's inputs a rounded number
-    payrollBudget = Math.round(payrollBudget).toLocaleString();
+    payrollBudget = Math.round(payrollBudget)
     console.log(payrollBudget);
     // clear the input fields
     $( '#payrollBudgetInput' ).val('');
@@ -54,13 +55,11 @@ function getUserBudgetInput(){
     // // empty what is there
     $( '.budgetOutput' ).empty();
     $( '.budgetOutput' ).append(`
-        <h3>Monthly Payroll Budget: $${payrollBudget}</h3>
+        <h3>Monthly Payroll Budget: ${payrollBudget.toLocaleString('en-EN', {style: 'currency', currency: 'USD'})}</h3>
         `)
-    if ( totalSpend >= payrollBudget ){
-        $( '.payrollCalc' ).css( 'background-color', 'red' );
-    } else {
-        $( '.payrollCalc' ).css( 'background-color', '#f2f2f2' );
-    }
+    hightlightRed();
+    console.log(payrollBudget)
+    console.log(totalSpend);
 }
 
 // clear the input fields
@@ -121,13 +120,13 @@ function clickedDelete(){
 function monthlyCalc(){
     // Checking to see if function is being called
     console.log( 'in function monthlyCalc' )
-    let totalSpend = 0;
+    totalSpend = 0;
     // for each employee, combine all salaries
     for (employeez of employeeArray){
         totalSpend += Math.round(employeez.salary/12);
     }
     // check to see if it logs correctly
-    console.log(totalSpend)
+    console.log(totalSpend);
     // append the total to the DOM
     let el = $( '.payrollCalc' );
     el.empty();
@@ -139,12 +138,16 @@ function monthlyCalc(){
 function hightlightRed(){
     // Checking to see if function is being called
     console.log( 'in function hightlightRed' );
-    let payrollBudget = $( '#payrollBudgetInput' ).val();
+    // payrollBudget = $( '#payrollBudgetInput' ).val();
+    console.log(payrollBudget);
+    console.log(totalSpend);
     if ( totalSpend >= payrollBudget ){
-        $( '.payrollCalc' ).css( 'background-color', 'red' );
-    } else {
-        $( '.payrollCalc' ).css( 'background-color', '#f2f2f2' );
-    }
+        $( '.payrollCalc' ).removeClass('underbudget');
+        $( '.payrollCalc' ).addClass('overbudget');
+      }else {
+        $( '.payrollCalc' ).removeClass('overbudget');
+        $( '.payrollCalc' ).addClass('underbudget');
+      }
 }
 
 function checkInputs(employee){

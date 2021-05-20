@@ -91,13 +91,14 @@ function displayThings(){
         // setting .data() so we can retrieve it later
         $employee.data(employee);
         $( '.addARow' ).append($employee);
-        hightlightRed();
     }
+    hightlightRed();
 }
 
 function clickedDelete(){
     // Checking to see if function is being called
     console.log( 'in function clickedDelete' );
+    
     confirm('Are you sure you want to delete this employee?')
     // getting the .data()
     let deletedEmployee = $(this).data();
@@ -142,11 +143,9 @@ function hightlightRed(){
     console.log(payrollBudget);
     console.log(totalSpend);
     if ( totalSpend >= payrollBudget ){
-        $( '.payrollCalc' ).removeClass('underbudget');
         $( '.payrollCalc' ).addClass('overbudget');
-      }else {
+      } else {
         $( '.payrollCalc' ).removeClass('overbudget');
-        $( '.payrollCalc' ).addClass('underbudget');
       }
 }
 
